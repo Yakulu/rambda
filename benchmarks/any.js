@@ -22,7 +22,7 @@ suite
   .add('Lodash.some', () => {
     _.some(input, fn)
   })
-  .add('Sanctuary.ant.no.typecheck', () => {
+  .add('Sanctuary.any.no.typecheck', () => {
     S.any (fn) (input)
   })
 

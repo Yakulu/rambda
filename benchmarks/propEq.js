@@ -1,8 +1,7 @@
 const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
-const sanctuary = require('sanctuary')
-const S = sanctuary.create({checkTypes: false, env: sanctuary.env})
+const S = require('sanctuary')
 
 const suite = new Benchmark.Suite()
 const input = { foo: 'bar' }
@@ -15,8 +14,11 @@ suite
   .add('Ramda.propEq', () => {
     Ramda.propEq(...value)(input)
   })
-  .add('Sanctuary.equals.prop.no.typecheck', () => {
+  .add('Sanctuary.equals.prop', () => {
     S.equals (S.prop (value[0]) (input)) (value[1])
+  })
+  .add('Sanctuary.equals.prop.unchecked', () => {
+    S.unchecked.equals (S.prop (value[0]) (input)) (value[1])
   })
 
 module.exports = suite

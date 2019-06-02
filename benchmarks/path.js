@@ -2,8 +2,7 @@ const _ = require('lodash')
 const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
-const sanctuary = require('sanctuary')
-const S = sanctuary.create({checkTypes: false, env: sanctuary.env})
+const S = require('sanctuary')
 
 const suite = new Benchmark.Suite()
 const input = { a: { b: 2 } }
@@ -22,8 +21,11 @@ suite
   .add('Lodash.get', () => {
     _.get(input, value)
   })
-  .add('Sanctuary.props.no.typecheck', () => {
+  .add('Sanctuary.props', () => {
     S.props (value) (input)
+  })
+  .add('Sanctuary.props.unchecked', () => {
+    S.unchecked.props (value) (input)
   })
 
 module.exports = suite

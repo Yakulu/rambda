@@ -2,8 +2,7 @@ const _ = require('lodash')
 const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
-const sanctuary = require('sanctuary')
-const S = sanctuary.create({checkTypes: false, env: sanctuary.env})
+const S = require('sanctuary')
 
 const suite = new Benchmark.Suite()
 const input = { bar: 'yes' }
@@ -22,8 +21,11 @@ suite
   .add('Lodash.merge', () => {
     _.merge(value, input)
   })
-  .add('Sanctuary.concat.no.typecheck', () => {
+  .add('Sanctuary.concat', () => {
     S.concat (value) (input)
+  })
+  .add('Sanctuary.concat.unchecked', () => {
+    S.unchecked.concat (value) (input)
   })
 
 module.exports = suite

@@ -1,8 +1,7 @@
 const Benchmark = require('benchmark')
 const R = require('../dist/rambda.js')
 const Ramda = require('ramda')
-const sanctuary = require('sanctuary')
-const S = sanctuary.create({checkTypes: false, env: sanctuary.env})
+const S = require('sanctuary')
 
 const suite = new Benchmark.Suite()
 const input = [1, 2, 3, 4]
@@ -15,8 +14,11 @@ suite
   .add('Ramda.dropLast', () => {
     Ramda.dropLast(value)(input)
   })
-  .add('Sanctuary.dropLast.no.typecheck', () => {
+  .add('Sanctuary.dropLast', () => {
     S.dropLast (value) (input)
+  })
+  .add('Sanctuary.dropLast.unchecked', () => {
+    S.unchecked.dropLast (value) (input)
   })
 
 module.exports = suite
